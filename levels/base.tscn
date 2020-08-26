@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/border.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player.tscn" type="PackedScene" id=4]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 65, -52 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="Interactable" parent="Interactables" instance=ExtResource( 1 )]
+position = Vector2( 239, -7 )
+text_display = "I AM DOWNIAJIRE JWIFJ OWIAJF JFO IWJE FOIJWEOIJF WOEIJ FOWI JOEW"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Border" parent="CanvasLayer" instance=ExtResource( 2 )]
+margin_left = -320.0
+margin_top = -472.0
+margin_right = 321.0
+margin_bottom = 8.0
+[connection signal="hp_change" from="Player" to="CanvasLayer/Border" method="_on_Player_hp_change"]
+[connection signal="text_to_display" from="Interactables/Interactable" to="CanvasLayer/Border" method="_on_Interactable_text_to_display"]

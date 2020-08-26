@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/border.tscn" type="PackedScene" id=2]
+[ext_resource path="res://wacky_tiles/level2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/NextLevel.tscn" type="PackedScene" id=6]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 82, 166 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="Interactable" parent="Interactables" instance=ExtResource( 1 )]
+position = Vector2( 253, 201 )
+text_display = "Time to jump.."
+
+[node name="Interactable2" parent="Interactables" instance=ExtResource( 1 )]
+position = Vector2( 584, 58 )
+text_display = "Watch out for fall damage."
+
+[node name="Interactable3" parent="Interactables" instance=ExtResource( 1 )]
+position = Vector2( 679, 201 )
+text_display = "Just kidding. "
+
+[node name="Enemy" parent="Interactables/Interactable3" instance=ExtResource( 5 )]
+position = Vector2( -183, -82 )
+direction = Vector2( 1, 0 )
+make_baby = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Border" parent="CanvasLayer" instance=ExtResource( 2 )]
+margin_left = -320.0
+margin_top = -472.0
+margin_right = 321.0
+margin_bottom = 8.0
+
+[node name="level2" parent="." instance=ExtResource( 3 )]
+
+[node name="NextLevel" parent="." instance=ExtResource( 6 )]
+position = Vector2( 761, 195 )
+next_scene = "res://levels/level3.tscn"
+[connection signal="hp_change" from="Player" to="CanvasLayer/Border" method="_on_Player_hp_change"]
+[connection signal="text_to_display" from="Interactables/Interactable" to="CanvasLayer/Border" method="_on_Interactable_text_to_display"]
+[connection signal="text_to_display" from="Interactables/Interactable2" to="CanvasLayer/Border" method="_on_Interactable_text_to_display"]
+[connection signal="text_to_display" from="Interactables/Interactable3" to="CanvasLayer/Border" method="_on_Interactable_text_to_display"]

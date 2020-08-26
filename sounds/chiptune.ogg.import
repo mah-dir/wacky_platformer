@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/chiptune.ogg-ceedbfe8fbde908c9fd08854f6b639aa.oggstr"
+
+[deps]
+
+source_file="res://sounds/chiptune.ogg"
+dest_files=[ "res://.import/chiptune.ogg-ceedbfe8fbde908c9fd08854f6b639aa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

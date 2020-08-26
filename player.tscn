@@ -1,0 +1,142 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://colored_transparent_packed.png" type="Texture" id=1]
+[ext_resource path="res://player.gd" type="Script" id=2]
+[ext_resource path="res://dino.png" type="Texture" id=3]
+[ext_resource path="res://guns.png" type="Texture" id=4]
+[ext_resource path="res://sounds/Click7.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/Impact4.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/Shoot5.wav" type="AudioStream" id=7]
+[ext_resource path="res://sounds/Warning.wav" type="AudioStream" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 7 )
+
+[sub_resource type="Animation" id=2]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -3 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprites/Head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -10.0, 0.0 ]
+}
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 4, 1, 12, 7 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 4, 10, 12, 5 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 482, 23, 12, 8 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 1, 3, 12, 9 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Flasher" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 7 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+smoothing_speed = 2.0
+offset_h = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 3 )
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Head" type="Sprite" parent="Sprites"]
+texture = SubResource( 4 )
+
+[node name="Jaw" type="Sprite" parent="Sprites"]
+position = Vector2( 0, 4 )
+texture = SubResource( 5 )
+
+[node name="Body" type="Sprite" parent="Sprites"]
+modulate = Color( 0.678431, 0.807843, 0.380392, 1 )
+position = Vector2( 0, 10 )
+texture = SubResource( 6 )
+
+[node name="Gun" type="Sprite" parent="Sprites"]
+position = Vector2( 8, 8 )
+scale = Vector2( 0.5, 0.5 )
+texture = SubResource( 7 )
+
+[node name="gunLeft" type="Position2D" parent="."]
+position = Vector2( -8, 8 )
+
+[node name="gunRight" type="Position2D" parent="."]
+position = Vector2( 8, 8 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = 10.0
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="timeout" from="Flasher" to="." method="_on_Flasher_timeout"]

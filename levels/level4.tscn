@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/border.tscn" type="PackedScene" id=2]
+[ext_resource path="res://wacky_tiles/colored_transparent.tsx" type="TileSet" id=3]
+[ext_resource path="res://player.tscn" type="PackedScene" id=4]
+
+[node name="World" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 2490383, 164, 0, 2490384, 165, 0, 2555918, 164, 0, 2555921, 165, 0, 2621453, 164, 0, 2621458, 165, 0, 2686988, 164, 0, 2686995, 165, 0, 2752523, 164, 0, 2752532, 165, 0, 2818058, 164, 0, 2818069, 165, 0, 2883593, 164, 0, 2883606, 165, 0, 2949128, 164, 0, 2949143, 165, 0, 3014663, 164, 0, 3014680, 165, 0, 3080198, 164, 0, 3080217, 165, 0, 3145733, 164, 0, 3145754, 165, 0, 3211268, 164, 0, 3211291, 165, 0, 3276803, 164, 0, 3276828, 165, 0, 3342338, 164, 0, 3342365, 165, 0, 3407873, 164, 0, 3407902, 165, 0, 3473408, 164, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 65, -52 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]
+
+[node name="Interactable" parent="Interactables" instance=ExtResource( 1 )]
+position = Vector2( 239, -7 )
+text_display = "I AM DOWNIAJIRE JWIFJ OWIAJF JFO IWJE FOIJWEOIJF WOEIJ FOWI JOEW"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Border" parent="CanvasLayer" instance=ExtResource( 2 )]
+margin_left = -320.0
+margin_top = -472.0
+margin_right = 321.0
+margin_bottom = 8.0
+[connection signal="hp_change" from="Player" to="CanvasLayer/Border" method="_on_Player_hp_change"]
+[connection signal="text_to_display" from="Interactables/Interactable" to="CanvasLayer/Border" method="_on_Interactable_text_to_display"]

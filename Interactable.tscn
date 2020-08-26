@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://colored_transparent_packed.png" type="Texture" id=1]
+[ext_resource path="res://Interactable.gd" type="Script" id=2]
+[ext_resource path="res://question mark.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 610, 211, 12, 11 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6, 6 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, -98, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[node name="Interactable" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 1
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_Interactable_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Interactable_body_exited"]

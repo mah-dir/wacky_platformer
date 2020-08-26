@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Click7.wav-d4ea0c2e66bdd4c330e94f6c397eb177.sample"
+
+[deps]
+
+source_file="res://sounds/Click7.wav"
+dest_files=[ "res://.import/Click7.wav-d4ea0c2e66bdd4c330e94f6c397eb177.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

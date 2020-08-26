@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://ui/border.png" type="Texture" id=1]
+[ext_resource path="res://PressStart2P-vaV7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/border.gd" type="Script" id=3]
+[ext_resource path="res://sounds/Get_Item2.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/Get_Item4.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/chiptune.ogg" type="AudioStream" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[node name="Border" type="Control"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -318.83
+margin_top = -481.67
+margin_right = 322.17
+margin_bottom = -1.6702
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogBox" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -601.0
+margin_bottom = -440.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogBox"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 340.0
+margin_right = 360.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="DialogBox/HBoxContainer"]
+margin_right = 400.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 400, 100 )
+texture = ExtResource( 1 )
+region_rect = Rect2( 6, 6, 36, 36 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogBox/HBoxContainer/NinePatchRect"]
+margin_left = 13.0
+margin_top = 11.0
+margin_right = 626.0
+margin_bottom = 122.0
+custom_fonts/font = SubResource( 1 )
+text = "I am dinosaur man. Do not fwoei ffwefewfewfewfwefweewfwefwfefwefewfwefwefewf we f efwe f wef weifksfdfsesfsefsefsefesffefsfefsefesfesfsefsefsef ewpik fwpek fpwek pofk wepof keofkwpeo kfpe"
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Click" type="AudioStreamPlayer" parent="DialogBox"]
+stream = ExtResource( 4 )
+volume_db = -5.0
+
+[node name="End" type="AudioStreamPlayer" parent="DialogBox"]
+stream = ExtResource( 5 )
+volume_db = -5.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Hp" type="Control" parent="."]
+margin_right = 189.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Hp"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 96.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 2 )
+text = "HP 100"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
